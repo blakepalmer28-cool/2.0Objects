@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 //******************************************
 // Class Definition Section
 
-public class BasicGameApp implements Runnable {
+public class BasicGameApp implements Runnable {//tictoc
 
    //Variable Definition Section
    //Declare the variables used in the program 
@@ -47,6 +47,8 @@ public class BasicGameApp implements Runnable {
     public Astronaut astro2;
 
 
+
+
    // Main method definition
    // This is the code that runs first and automatically
 	public static void main(String[] args) {
@@ -54,7 +56,7 @@ public class BasicGameApp implements Runnable {
 		new Thread(ex).start();                 //creates a threads & starts up the code in the run( ) method  
 	}
 
-
+    //todo: make astro and astro2 go in different directions
 
    // Constructor Method
    // This has the same name as the class
@@ -68,7 +70,11 @@ public class BasicGameApp implements Runnable {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
 		astro = new Astronaut(10,100);
-
+        astro.dx = -2;
+        astro.height = 100;
+        astro2 = new Astronaut(300,400);
+        astro2.dx = 2;
+        astro2.height=100;
 
 	}// BasicGameApp()
 
@@ -87,7 +93,7 @@ public class BasicGameApp implements Runnable {
 
          moveThings();  //move all the game objects
          render();  // paint the graphics
-         pause(20); // sleep for 10 ms
+         pause(0); // sleep for 10 ms
 		}
 	}
 
@@ -96,6 +102,7 @@ public class BasicGameApp implements Runnable {
 	{
       //calls the move( ) code in the objects
 		astro.move();
+        astro2.move();
 
 	}
 	
@@ -147,6 +154,7 @@ public class BasicGameApp implements Runnable {
 
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+        g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
 
 		g.dispose();
 
