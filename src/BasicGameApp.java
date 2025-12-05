@@ -65,14 +65,35 @@ public class BasicGameApp implements Runnable {//tictoc
 	public BasicGameApp() {
       
       setUpGraphics();
+
+        //randomness
+        //range 0-9
+        int randx = (int)(Math.random()*10);
+        int randy = (int)(Math.random()*700);
+        //0.0001-0.9999
+        //0.001 - 9.999
+        //0.9
+
+        //range to 1-10
+        randx = (int)(Math.random()*10);
+        //0.001 = 0.999
+        //0.1- 9.99
+        //0-9
+        //1-10
+
+        //range 1-1000
+        randx=(int)(Math.random()*1000)+1;
+
+        //range 1-700
+        randy = (int)(Math.random()*10)+1;
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-		astro = new Astronaut(10,100);
+		astro = new Astronaut(randy,500);
         astro.dx = -2;
         astro.height = 100;
-        astro2 = new Astronaut(300,400);
+        astro2 = new Astronaut(20,randy);
         astro2.dx = 2;
         astro2.height=100;
 
@@ -93,7 +114,7 @@ public class BasicGameApp implements Runnable {//tictoc
 
          moveThings();  //move all the game objects
          render();  // paint the graphics
-         pause(0); // sleep for 10 ms
+         pause(2); // sleep for 10 ms
 		}
 	}
 
