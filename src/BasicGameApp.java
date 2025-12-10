@@ -46,6 +46,7 @@ public class BasicGameApp implements Runnable {//tictoc
 	private Astronaut astro;
     public Astronaut astro2;
     public Asteroid asteroid1;
+    public Asteroid asteroid2;
 
 
 
@@ -100,6 +101,7 @@ public class BasicGameApp implements Runnable {//tictoc
         astro2.height=100;
 
         asteroid1 = new Asteroid(467, randy);
+        asteroid2 = new Asteroid(randy,467);
 
 
 	}// BasicGameApp()
@@ -130,6 +132,7 @@ public class BasicGameApp implements Runnable {//tictoc
 		astro.move();
         astro2.move();
         asteroid1.move();
+        asteroid2.move();
 
 	}
 	
@@ -183,7 +186,7 @@ public class BasicGameApp implements Runnable {//tictoc
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
         g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, asteroid1.width,asteroid1.height, null);
-
+        g.drawImage(asteroidPic, asteroid2.xpos, asteroid2.ypos, asteroid2.width,asteroid2.height, null);
 
 		bufferStrategy.show();
 	}
