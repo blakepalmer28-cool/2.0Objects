@@ -40,11 +40,12 @@ public class BasicGameApp implements Runnable {//tictoc
    
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
-
+    public Image asteroidPic;
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	private Astronaut astro;
     public Astronaut astro2;
+    public Asteroid asteroid1;
 
 
 
@@ -90,12 +91,16 @@ public class BasicGameApp implements Runnable {//tictoc
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-		astro = new Astronaut(randy,500);
+        asteroidPic = Toolkit.getDefaultToolkit().getImage("asteroid.jpeg"); //load the picture
+        astro = new Astronaut(randy,500);
         astro.dx = -2;
         astro.height = 100;
         astro2 = new Astronaut(20,randy);
         astro2.dx = 2;
         astro2.height=100;
+
+        asteroid1 = new Asteroid(467, randy);
+
 
 	}// BasicGameApp()
 
@@ -124,6 +129,7 @@ public class BasicGameApp implements Runnable {//tictoc
       //calls the move( ) code in the objects
 		astro.move();
         astro2.move();
+        asteroid1.move();
 
 	}
 	
@@ -176,8 +182,8 @@ public class BasicGameApp implements Runnable {//tictoc
       //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
+        g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, asteroid1.width,asteroid1.height, null);
 
-		g.dispose();
 
 		bufferStrategy.show();
 	}
