@@ -41,6 +41,8 @@ public class BasicGameApp implements Runnable {//tictoc
     public BufferStrategy bufferStrategy;
     public Image astroPic;
     public Image asteroidPic;
+    public Image backgroundPic;
+
     //Declare the objects used in the program
     //These are things that are made up of more than one variable type
     private Astronaut astro;
@@ -62,44 +64,46 @@ public class BasicGameApp implements Runnable {//tictoc
     // This has the same name as the class
     // This section is the setup portion of the program
     // Initialize your variables and construct your program objects here.
-    public BasicGameApp() {
+    public BasicGameApp(){
 
         setUpGraphics();
 
-        //randomness
-        //range 0-9
-        int randx = (int) (Math.random() * 10);
-        int randy = (int) (Math.random() * 700);
-        //0.0001-0.9999
-        //0.001 - 9.999
-        //0.9
+            //randomness
+            //range 0-9
+            int randx = (int) (Math.random() * 10);
+            int randy = (int) (Math.random() * 700);
+            //0.0001-0.9999
+            //0.001 - 9.999
+            //0.9
 
-        //range to 1-10
-        randx = (int) (Math.random() * 10);
-        //0.001 = 0.999
-        //0.1- 9.99
-        //0-9
-        //1-10
+            //range to 1-10
+            randx = (int) (Math.random() * 10);
+            //0.001 = 0.999
+            //0.1- 9.99
+            //0-9
+            //1-10
 
-        //range 1-1000
-        randx = (int) (Math.random() * 1000) + 1;
+            //range 1-1000
+            randx = (int) (Math.random() * 1000) + 1;
 
-        //range 1-700
-        randy = (int) (Math.random() * 10) + 1;
+            //range 1-700
+            randy = (int) (Math.random() * 10) + 1;
 
-        //variable and objects
-        //create (construct) the objects needed for the game and load up
-        astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-        asteroidPic = Toolkit.getDefaultToolkit().getImage("asteroid.jpeg"); //load the picture
-        astro = new Astronaut(randy, 500);
-        astro.dx = -2;
-        astro.height = 100;
-        astro2 = new Astronaut(20, randy);
-        astro2.dx = 2;
-        astro2.height = 100;
+            //variable and objects
+            //create (construct) the objects needed for the game and load up
+            astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
+            asteroidPic = Toolkit.getDefaultToolkit().getImage("asteroid.jpeg"); //load the picture
+            backgroundPic = Toolkit.getDefaultToolkit().getImage("stars.jpeg"); //load the picture
+            astro = new Astronaut(randy, 500);
+            astro.dx = -2;
+            astro.height = 100;
+            astro2 = new Astronaut(20, randy);
+            astro2.dx = 2;
+            astro2.height = 100;
 
-        asteroid1 = new Asteroid(467, randy);
-        asteroid2 = new Asteroid(randy, 467);
+            asteroid1 = new Asteroid(467, 400);
+            asteroid2 = new Asteroid(randy, 467);
+            asteroid1.dx = -asteroid1.dx;
 
 
     }// BasicGameApp()
@@ -131,7 +135,6 @@ public class BasicGameApp implements Runnable {//tictoc
         asteroid1.move();
         asteroid2.move();
         crashing();
-        asteroidCrash();
 
     }
 
@@ -146,29 +149,31 @@ public class BasicGameApp implements Runnable {//tictoc
             astro2.isAlive = false;
 
         }
-
-    }
-
-    public void asteroidCrash() {
-        //if astros crash into each other
-        if (asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isAlive == true) {
+        if (asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false) {
             System.out.println("CRASH!!!");
             asteroid1.dx = -asteroid1.dx;
             asteroid2.dx = -asteroid2.dx;
             asteroid1.dy = -asteroid1.dy;
             asteroid2.dy = -asteroid2.dy;
             asteroid2.isAlive = false;
+            asteroid2.height = asteroid2.height +10;
+            asteroid2.isCrashing = true;
 
         }
+
+        if (!asteroid1.hitbox.intersects(asteroid2.hitbox)){
+            asteroid2.isCrashing = false;
+        }
+
     }
-    public void pause ( int time ){
+    public void pause ( int time ) {
         //sleep
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
 
         }
-
+    }
         //Graphics setup method
         private void setUpGraphics () {
             frame = new JFrame("Application Template");   //Create the program window or frame.  Names it.
@@ -204,6 +209,7 @@ public class BasicGameApp implements Runnable {//tictoc
         private void render () {
             Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
             g.clearRect(0, 0, WIDTH, HEIGHT);
+            g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
             //draw the image of the astronaut
             g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
@@ -220,4 +226,3 @@ public class BasicGameApp implements Runnable {//tictoc
             bufferStrategy.show();
         }
     }
-}
