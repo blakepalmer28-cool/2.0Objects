@@ -13,6 +13,8 @@
 
 //Graphics Libraries
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -23,7 +25,8 @@ import javax.swing.JPanel;
 //******************************************
 // Class Definition Section
 
-public class BasicGameApp implements Runnable {//tictoc
+//implement key listener
+public class BasicGameApp implements Runnable, KeyListener {//tictoc
 
     //Variable Definition Section
     //Declare the variables used in the program
@@ -185,6 +188,10 @@ public class BasicGameApp implements Runnable {//tictoc
             // creates a canvas which is a blank rectangular area of the screen onto which the application can draw
             // and trap input events (Mouse and Keyboard events)
             canvas = new Canvas();
+
+            //step 2: add key listener to canvas
+            canvas.addKeyListener(this);
+
             canvas.setBounds(0, 0, WIDTH, HEIGHT);
             canvas.setIgnoreRepaint(true);
 
@@ -222,7 +229,64 @@ public class BasicGameApp implements Runnable {//tictoc
             g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
             g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
 
+
+
+            //end of drawing things
             g.dispose();
             bufferStrategy.show();
         }
+
+    //step 3: add methods
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyCode());
+
+        if(e.getKeyCode()==38){ //upo arrow
+            System.out.println("Going up");
+            //astro.xpos = 0;
+            //astro.ypos =astro.ypos-10;
+            //astro.dy=-Math.abs(astro.dy);
+            astro.isNorth =true;
+
+        }
+        if(e.getKeyCode()==40){ //upo arrow
+            System.out.println("Going down");
+            //astro.xpos = 0;
+            //astro.ypos =astro.ypos-10;
+            //astro.dy=-Math.abs(astro.dy);
+            astro.isSouth =true;
+
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("I stopped touching " +e.getKeyCode());
+
+        if (e.getKeyCode() ==38){//38 is up arrow
+            System.out.println("Not going up");
+            astro.isNorth = false;
+        }
+
+        if (e.getKeyCode() ==40){//38 is up arrow
+            System.out.println("Not going down");
+            astro.isSouth = false;
+        }
+
+
+        }
+
+    }
+
+
+
+
+
+
+
