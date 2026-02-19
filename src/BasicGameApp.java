@@ -254,12 +254,28 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
             astro.isNorth =true;
 
         }
-        if(e.getKeyCode()==40){ //upo arrow
+        if(e.getKeyCode()==40){ //down arrow
             System.out.println("Going down");
             //astro.xpos = 0;
             //astro.ypos =astro.ypos-10;
             //astro.dy=-Math.abs(astro.dy);
             astro.isSouth =true;
+
+        }
+        if(e.getKeyCode()==39){ //right arrow
+            System.out.println("Going right");
+            //astro.xpos = 0;
+            //astro.ypos =astro.ypos-10;
+            //astro.dy=-Math.abs(astro.dy);
+            astro.isEast =true;
+
+        }
+        if(e.getKeyCode()==37){ //right arrow
+            System.out.println("Going left");
+            //astro.xpos = 0;
+            //astro.ypos =astro.ypos-10;
+            //astro.dy=-Math.abs(astro.dy);
+            astro.isWest =true;
 
         }
 
@@ -277,6 +293,15 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
         if (e.getKeyCode() ==40){//38 is up arrow
             System.out.println("Not going down");
             astro.isSouth = false;
+        }
+
+        if (e.getKeyCode() ==39){//39 is right arrow
+            System.out.println("not going left");
+            astro.isEast = false;
+        }
+        if (e.getKeyCode() ==37){//39 is right arrow
+            System.out.println("not going right");
+            astro.isWest = false;
         }
 
 
