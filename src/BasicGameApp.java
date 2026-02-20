@@ -15,6 +15,8 @@
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -26,7 +28,7 @@ import javax.swing.JPanel;
 // Class Definition Section
 
 //implement key listener
-public class BasicGameApp implements Runnable, KeyListener {//tictoc
+public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tictoc
 
     //Variable Definition Section
     //Declare the variables used in the program
@@ -52,6 +54,8 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
     public Astronaut astro2;
     public Asteroid asteroid1;
     public Asteroid asteroid2;
+    public Rectangle startHitbox;
+    public boolean startGame;
 
 
     // Main method definition
@@ -108,6 +112,8 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
             asteroid2 = new Asteroid(randy, 467);
             asteroid1.dx = -asteroid1.dx;
 
+            startHitbox = new Rectangle(100,100,100,100);
+
 
     }// BasicGameApp()
 
@@ -133,6 +139,7 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
 
     public void moveThings() {
         //calls the move( ) code in the objects
+        if (startGame ==true)
         astro.move();
         astro2.move();
         asteroid1.move();
@@ -192,6 +199,9 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
             //step 2: add key listener to canvas
             canvas.addKeyListener(this);
 
+            //step 2: ad
+            canvas.addMouseListener(this);
+
             canvas.setBounds(0, 0, WIDTH, HEIGHT);
             canvas.setIgnoreRepaint(true);
 
@@ -216,18 +226,22 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
         private void render () {
             Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
             g.clearRect(0, 0, WIDTH, HEIGHT);
-            g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
+            if (startGame ==true) {
+                g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
-            //draw the image of the astronaut
-            g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+                //draw the image of the astronaut
+                g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
 
-            if (astro2.isAlive == true) {
-                g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
+                if (astro2.isAlive == true) {
+                    g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
+                }
+                g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, asteroid1.width, asteroid1.height, null);
+                g.drawImage(asteroidPic, asteroid2.xpos, asteroid2.ypos, asteroid2.width, asteroid2.height, null);
+                g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
+                g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
             }
-            g.drawImage(asteroidPic, asteroid1.xpos, asteroid1.ypos, asteroid1.width, asteroid1.height, null);
-            g.drawImage(asteroidPic, asteroid2.xpos, asteroid2.ypos, asteroid2.width, asteroid2.height, null);
-            g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
-            g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+            g.setColor(Color.green);
+            g.fillRect(100,100,100,100);
 
 
 
@@ -307,7 +321,38 @@ public class BasicGameApp implements Runnable, KeyListener {//tictoc
 
         }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
     }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println(e.getPoint());
+        Rectangle pointHitbox = new Rectangle(e.getX(),e.getY(),1,1);
+        if(startHitbox.intersects(pointHitbox)){
+            System.out.println("start game");
+            startGame = true;
+
+        }
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        System.out.println("mouse entered the screen");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+}
 
 
 
