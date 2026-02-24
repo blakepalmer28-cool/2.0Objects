@@ -333,7 +333,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tic
         if(startHitbox.intersects(pointHitbox)){
             System.out.println("start game");
             startGame = true;
-
+        }
+        if(astro.hitbox.intersects(pointHitbox)){
+            astro.dx =0;
+            astro.dy = 0;
         }
 
     }
