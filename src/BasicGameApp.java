@@ -56,6 +56,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tic
     public Asteroid asteroid2;
     public Rectangle startHitbox;
     public boolean startGame;
+    public Asteroid[]asteroids;
 
 
     // Main method definition
@@ -113,6 +114,14 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tic
             asteroid1.dx = -asteroid1.dx;
 
             startHitbox = new Rectangle(100,100,100,100);
+            startGame = false;
+
+            asteroids = new Asteroid[5];
+        for (int x =0; x<asteroids.length; x++){
+            asteroids[x]= new Asteroid(200,(int)(Math.random()*700));
+            //todo: give points a random num between 0and 10 inclusive [0,10]
+        }
+
 
 
     }// BasicGameApp()
@@ -144,8 +153,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tic
         astro2.move();
         asteroid1.move();
         asteroid2.move();
-        crashing();
-
+        //todo: make asteroids in asteroids move!!!!!!!
+        for (int o =0; o<asteroids.length; o++){
+            asteroids[o].move();
+        }
     }
 
     public void crashing() {
@@ -239,6 +250,11 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tic
                 g.drawImage(asteroidPic, asteroid2.xpos, asteroid2.ypos, asteroid2.width, asteroid2.height, null);
                 g.drawRect(astro.hitbox.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
                 g.drawRect(astro2.hitbox.x, astro2.hitbox.y, astro2.hitbox.width, astro2.hitbox.height);
+                for (int b =0; b<asteroids.length; b++) {
+                    g.drawImage(asteroidPic, asteroids[b].xpos, asteroids[b].ypos, asteroids[b].width, asteroids[b].height, null);
+                }
+
+
             }
             g.setColor(Color.green);
             g.fillRect(100,100,100,100);
