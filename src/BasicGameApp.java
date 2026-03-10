@@ -156,7 +156,14 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {//tic
         //todo: make asteroids in asteroids move!!!!!!!
         for (int o =0; o<asteroids.length; o++){
             asteroids[o].move();
+            asteroids[o].dx =(int)(Math.random()*100);
+            asteroids[o].dy =(int)(Math.random()*100);
+
+
+
         }
+
+
     }
 
     public void crashing() {
